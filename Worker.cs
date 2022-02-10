@@ -61,7 +61,7 @@ namespace TeknologiProjekt
                             gathering--;
                             workerInventory++;
                         }
-                        Thread.Sleep(100);
+                        Thread.Sleep(500);
                     }
                     activeSema.Release();
                 }
@@ -88,7 +88,7 @@ namespace TeknologiProjekt
                         _taskHandler(taskState);
                     }
                 }
-
+                
 
             }
         }
@@ -103,6 +103,8 @@ namespace TeknologiProjekt
                     target = GameWorld.resourceLocations[3];
                     woodResource += gathering;
                     Wood += offloading;
+                    gathering = 0;
+                    offloading = 0;
                     activeSema = woodsema;
                     activeLock = woodlock;
                     break;
@@ -110,6 +112,8 @@ namespace TeknologiProjekt
                     target = GameWorld.resourceLocations[5];
                     foodResource += gathering;
                     Food += offloading;
+                    gathering = 0;
+                    offloading = 0;
                     activeSema = foodsema;
                     activeLock = foodlock;
                     break;
@@ -117,6 +121,8 @@ namespace TeknologiProjekt
                     target = GameWorld.resourceLocations[2];
                     goldResource += gathering;
                     Gold += offloading;
+                    gathering = 0;
+                    offloading = 0;
                     activeSema = goldsema;
                     activeLock = goldlock;
                     break;
