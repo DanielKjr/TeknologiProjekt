@@ -58,9 +58,8 @@ namespace TeknologiProjekt
 
 
             gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Gold));
-            gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Wood));
-            gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Food));
-           
+            gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Wood, 0));
+            gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Food, 0, 0));
 
             base.Initialize();
         }
