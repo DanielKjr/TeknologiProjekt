@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace TeknologiProjekt
 {
@@ -12,8 +13,10 @@ namespace TeknologiProjekt
         private SpriteBatch _spriteBatch;
 
         public static SpriteFont standardFont;
+        protected Thread createWorkerThread;
 
         public static List<GameObject> gameObjects = new List<GameObject>();
+        public static List<GameObject> newObjects = new List<GameObject>();
         public static List<Vector2> resourceLocations = new List<Vector2>();
         public static Vector2 sceenSize;
 
@@ -57,13 +60,7 @@ namespace TeknologiProjekt
             gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Gold));
             gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Wood));
             gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Food));
-            var minerButton = new Button(Content.Load<Texture2D>("Resources/Settlement"))
-            {
-                Position = new Vector2(500, 500),
-                //Text = "Miner"
-            };
-            gameButtons.Add(minerButton);
-            minerButton.Click += MinerButtonClick;
+           
 
             base.Initialize();
         }
@@ -72,6 +69,8 @@ namespace TeknologiProjekt
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             standardFont = Content.Load<SpriteFont>("StandardFont");
+
+
             foreach (GameObject go in gameObjects)
             {
                 go.LoadContent(Content);
@@ -79,19 +78,27 @@ namespace TeknologiProjekt
 
             }
 
-
-
-        
-
-
-
-
+            var minerButton = new Button(Content.Load<Texture2D>("Workers/MinerGirth"))
+            {
+                Position = new Vector2(500, 500),
+                //Text = "Miner"
+            };
+            gameButtons.Add(minerButton);
+            minerButton.Click += MinerButtonClick;
 
         }
 
         private void MinerButtonClick(object sender, EventArgs e)
         {
+            createWorkerThread = new Thread(CreateWorker);
+            createWorkerThread.IsBackground = true;
+            createWorkerThread.Start();
+        }
 
+        private static void CreateWorker()
+        {
+            Thread.Sleep(2000);
+            newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Gold));
         }
 
         protected override void Update(GameTime gameTime)
@@ -99,10 +106,12 @@ namespace TeknologiProjekt
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            foreach (GameObject go in gameObjects)
+            foreach (var go in newObjects)
             {
-                go.Update(gameTime);
+                go.LoadContent(this.Content);
             }
+            gameObjects.AddRange(newObjects);
+            newObjects.Clear();
 
             foreach (Component b in gameButtons)
             {

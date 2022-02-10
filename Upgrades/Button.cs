@@ -23,7 +23,7 @@ namespace TeknologiProjekt
 
         public bool Clicked { get; private set; }
         public Color PenColor { get; set; }
-        private Color color = Color.White;
+      //  private Color color = Color.White;
         public Vector2 Position { get; set; }
 
         public Rectangle Rectangle
@@ -37,10 +37,9 @@ namespace TeknologiProjekt
         public Button(Texture2D sprite) 
         {
             _sprite = sprite;
-            //spriteScale = 0.4f;
+            spriteScale = 0.5f;
             PenColor = Color.Black;
         }
-
 
 
         public string Text { get; set; }
@@ -48,12 +47,12 @@ namespace TeknologiProjekt
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //var color = Color.White;
+            var color = Color.White;
 
             if (isHovering)
             color = Color.Gray;
 
-            spriteBatch.Draw(_sprite,Position, Rectangle, color, 0f, Vector2.Zero, spriteScale, SpriteEffects.None,0f);
+            spriteBatch.Draw(_sprite,Position, null, color, 0f, Vector2.Zero, spriteScale, SpriteEffects.None,0f);
 
         //    if (!string.IsNullOrEmpty(Text))
         //    {
