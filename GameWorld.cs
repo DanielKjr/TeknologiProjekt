@@ -17,6 +17,8 @@ namespace TeknologiProjekt
         public static List<Vector2> resourceLocations = new List<Vector2>();
         public static Vector2 sceenSize;
 
+        private List<Component> gameButtons = new List<Component>();
+
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -55,6 +57,14 @@ namespace TeknologiProjekt
             gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Gold));
             gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Wood));
             gameObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 50, sceenSize.Y / 2 + 50), Task.Food));
+            var minerButton = new Button(Content.Load<Texture2D>("Resources/Settlement"))
+            {
+                Position = new Vector2(500, 500),
+                //Text = "Miner"
+            };
+            gameButtons.Add(minerButton);
+            minerButton.Click += MinerButtonClick;
+
             base.Initialize();
         }
 
@@ -69,7 +79,18 @@ namespace TeknologiProjekt
 
             }
 
-           
+
+
+        
+
+
+
+
+
+        }
+
+        private void MinerButtonClick(object sender, EventArgs e)
+        {
 
         }
 
@@ -81,6 +102,11 @@ namespace TeknologiProjekt
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
+            }
+
+            foreach (Component b in gameButtons)
+            {
+                b.Update(gameTime);
             }
 
             base.Update(gameTime);
@@ -95,6 +121,11 @@ namespace TeknologiProjekt
             {
                 go.Draw(_spriteBatch);
             }
+            foreach (var component in gameButtons)
+            {
+                component.Draw(gameTime, _spriteBatch);
+            }
+
             Hud.Draw(_spriteBatch);
 
             _spriteBatch.DrawString(standardFont, $"{gameObjects.Count}", new Vector2(100, 100), Color.Black);
