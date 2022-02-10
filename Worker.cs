@@ -29,14 +29,30 @@ namespace TeknologiProjekt
 
         public Worker(Vector2 _pos, Task _task) : base(_pos, "Workers/MinerGirth")
         {
-
             moveSpeed = 0.5f;
             isAlive = true;
             taskState = _task;
             taskThread = new Thread(ResourceGathering);
             taskThread.IsBackground = true;
             taskThread.Start();
-
+        }
+        public Worker(Vector2 _pos, Task _task, int empty) : base(_pos, "Workers/LumberGirth")
+        {
+            moveSpeed = 0.5f;
+            isAlive = true;
+            taskState = _task;
+            taskThread = new Thread(ResourceGathering);
+            taskThread.IsBackground = true;
+            taskThread.Start();
+        }
+        public Worker(Vector2 _pos, Task _task, int empty, int empty2) : base(_pos, "Workers/FarmerGirth")
+        {
+            moveSpeed = 0.5f;
+            isAlive = true;
+            taskState = _task;
+            taskThread = new Thread(ResourceGathering);
+            taskThread.IsBackground = true;
+            taskThread.Start();
         }
 
         private void ResourceGathering()
