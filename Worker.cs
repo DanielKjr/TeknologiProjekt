@@ -11,7 +11,7 @@ namespace TeknologiProjekt
     }
     public class Worker : GameObject
     {
-        static Semaphore settlementsema = new Semaphore(2, 2);
+        static Semaphore settlementsema = new Semaphore(10, 10);
         static Semaphore goldsema = new Semaphore(2, 2); //would be nice with semaphore array here...
         static Semaphore woodsema = new Semaphore(2, 2);
         static Semaphore foodsema = new Semaphore(2, 2);
