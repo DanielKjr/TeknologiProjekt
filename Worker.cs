@@ -53,18 +53,17 @@ namespace TeknologiProjekt
 
                 if (Vector2.Distance(target, position) < 40f && workerInventory < workerMaxInventory)
                 {
+                    activeSema.WaitOne(); //allow 2 in at same time.
                     for (int i = 0; i < workerMaxInventory; i++)
                     {
-                        activeSema.WaitOne(); //allow 2 in at same time.
                         lock (activeLock) //Only allow 1 to manipulate data.
                         {
                             gathering--;
                             workerInventory++;
                         }
                         Thread.Sleep(100);
-                        activeSema.Release();
                     }
-
+                    activeSema.Release();
                 }
 
                 if (workerInventory >= workerMaxInventory)
@@ -73,17 +72,17 @@ namespace TeknologiProjekt
                 }
                 if (Vector2.Distance(GameWorld.resourceLocations[0], position) < 20f && workerInventory >= 0)
                 {
+                    settlementsema.WaitOne();
                     for (int i = 0; i < workerMaxInventory; i++)
                     {
-                        settlementsema.WaitOne();
                         lock (settlementlock)
                         {
                             offloading++;
                             workerInventory--;
                         }
                         Thread.Sleep(500);
-                        settlementsema.Release();
                     }
+                    settlementsema.Release();
                     if (workerInventory == 0)
                     {
                         _taskHandler(taskState);
