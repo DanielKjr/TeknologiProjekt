@@ -126,7 +126,7 @@ namespace TeknologiProjekt
         private static void CreateFarmer()
         {
             Thread.Sleep(2000);
-            newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Food,0));
+            newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Food,0,0));
         }
 
         //creates Lumber
@@ -140,7 +140,7 @@ namespace TeknologiProjekt
         private static void CreateLumber()
         {
             Thread.Sleep(2000);
-            newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Wood,0,0));
+            newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Wood,0));
         }
 
 
