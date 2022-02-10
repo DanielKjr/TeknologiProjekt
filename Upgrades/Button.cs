@@ -59,13 +59,13 @@ namespace TeknologiProjekt
 
             spriteBatch.Draw(_sprite,Position, null, color, 0f, Vector2.Zero, spriteScale, SpriteEffects.None,0f);
 
-        //    if (!string.IsNullOrEmpty(Text))
-        //    {
-        //        var x = (Rectangle.X + (Rectangle.Width / 2)) - (font.MeasureString(Text).X / 2);
-        //        var y = (Rectangle.Y + (Rectangle.Width / 2)) - (font.MeasureString(Text).Y / 2);
+            if (!string.IsNullOrEmpty(Text))
+            {
+                var x = (Rectangle.X + (Rectangle.Width / 2) + 20) - (font.MeasureString(Text).X / 2);
+                var y = (Rectangle.Y + (Rectangle.Width / 2 + 30)) - (font.MeasureString(Text).Y / 2);
 
-        //        spriteBatch.DrawString(GameWorld.standardFont, Text, new Vector2(x, y), PenColor);
-        //    }
+                spriteBatch.DrawString(GameWorld.standardFont, Text, new Vector2(x, y), PenColor, 0, Vector2.Zero, 0.7f, 0, 0);
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -82,9 +82,18 @@ namespace TeknologiProjekt
                 isHovering = true;
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
-                    minerClick?.Invoke(this, new EventArgs());
-                    farmerClick?.Invoke(this, new EventArgs());
-                    lumberClick?.Invoke(this, new EventArgs());
+                    if (GameObject.Gold >= 20 && GameObject.Wood >= 50)
+                    {
+                        minerClick?.Invoke(this, new EventArgs());
+                    }
+                    if (GameObject.Gold >= 50 && GameObject.Food >= 20)
+                    {
+                        farmerClick?.Invoke(this, new EventArgs());
+                    }
+                    if (GameObject.Gold >= 20 && GameObject.Food >= 50)
+                    {
+                        lumberClick?.Invoke(this, new EventArgs());
+                    }
                 }
             }
         }

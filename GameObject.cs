@@ -27,9 +27,9 @@ namespace TeknologiProjekt
         public static int goldResource = 0;
         public static int woodResource = 0;
         public static int foodResource = 0;
-        public static int Wood = 0;
-        public static int Food = 0;
-        public static int Gold = 0;
+        public static int Wood = 50;
+        public static int Food = 50;
+        public static int Gold = 50;
 
         public Vector2 Position { get => position; set => position = value; }
 

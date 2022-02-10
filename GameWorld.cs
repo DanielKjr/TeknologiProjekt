@@ -79,22 +79,24 @@ namespace TeknologiProjekt
 
             var minerButton = new Button(Content.Load<Texture2D>("Workers/MinerGirth"))
             {
-                Position = new Vector2(100, GameWorld.sceenSize.Y - 40),
-                //Text = "Miner"
+                Position = new Vector2(1100, GameWorld.sceenSize.Y - 60),
+                Text = "20 Gold & 50 Wood"
             };
             gameButtons.Add(minerButton);
             minerButton.minerClick += MinerButtonClick;
 
             var farmerButton = new Button(Content.Load<Texture2D>("Workers/FarmerGirth"))
             {
-                Position = new Vector2(150, GameWorld.sceenSize.Y - 40),
+                Position = new Vector2(700, GameWorld.sceenSize.Y - 60),
+                Text = "50 Gold & 20 Food"
             };
             gameButtons.Add(farmerButton);
             farmerButton.farmerClick += FarmerButtonClick;
 
             var lumberButton = new Button(Content.Load<Texture2D>("Workers/LumberGirth"))
             {
-                Position = new Vector2(200, GameWorld.sceenSize.Y - 40),
+                Position = new Vector2(900, GameWorld.sceenSize.Y - 60),
+                Text = "20 Gold & 50 Food"
             };
             gameButtons.Add(lumberButton);
             lumberButton.lumberClick += LumberButtonClick;
@@ -106,6 +108,8 @@ namespace TeknologiProjekt
         {
             createWorkerThread = new Thread(CreateMiner);
             createWorkerThread.IsBackground = true;
+            GameObject.Gold -= 20;
+            GameObject.Wood -= 50;
             createWorkerThread.Start();
         }
 
@@ -120,6 +124,8 @@ namespace TeknologiProjekt
         {
             createWorkerThread = new Thread(CreateFarmer);
             createWorkerThread.IsBackground = true;
+            GameObject.Gold -= 50;
+            GameObject.Food -= 20;
             createWorkerThread.Start();
         }
 
@@ -134,6 +140,8 @@ namespace TeknologiProjekt
         {
             createWorkerThread = new Thread(CreateLumber);
             createWorkerThread.IsBackground = true;
+            GameObject.Gold -= 20;
+            GameObject.Food -= 50;
             createWorkerThread.Start();
         }
 
@@ -181,7 +189,6 @@ namespace TeknologiProjekt
 
             Hud.Draw(_spriteBatch);
 
-            _spriteBatch.DrawString(standardFont, $"{gameObjects.Count}", new Vector2(100, 100), Color.Black);
             _spriteBatch.End();
 
             base.Draw(gameTime);
