@@ -19,7 +19,9 @@ namespace TeknologiProjekt
         private float spriteScale = 1;
 
 
-        public event EventHandler Click;
+        public event EventHandler minerClick;
+        public event EventHandler farmerClick;
+        public event EventHandler lumberClick;
 
         public bool Clicked { get; private set; }
         public Color PenColor { get; set; }
@@ -49,8 +51,11 @@ namespace TeknologiProjekt
         {
             var color = Color.White;
 
-            if (isHovering)
-            color = Color.Gray;
+            if (isHovering == true)
+            {
+                color = Color.Gray;
+            }
+            
 
             spriteBatch.Draw(_sprite,Position, null, color, 0f, Vector2.Zero, spriteScale, SpriteEffects.None,0f);
 
@@ -75,11 +80,12 @@ namespace TeknologiProjekt
             if (mouseRectangle.Intersects(Rectangle))
             {
                 isHovering = true;
-            }
-
-            if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
-            {
-                Click?.Invoke(this, new EventArgs());
+                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                {
+                    minerClick?.Invoke(this, new EventArgs());
+                    farmerClick?.Invoke(this, new EventArgs());
+                    lumberClick?.Invoke(this, new EventArgs());
+                }
             }
         }
     }

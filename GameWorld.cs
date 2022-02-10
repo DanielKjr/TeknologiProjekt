@@ -32,7 +32,7 @@ namespace TeknologiProjekt
         protected override void Initialize()
         {
             _graphics.PreferredBackBufferWidth = 1680;
-            _graphics.PreferredBackBufferHeight = 1050;
+            _graphics.PreferredBackBufferHeight = 1000;
             _graphics.ApplyChanges();
             sceenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
@@ -80,26 +80,71 @@ namespace TeknologiProjekt
 
             var minerButton = new Button(Content.Load<Texture2D>("Workers/MinerGirth"))
             {
-                Position = new Vector2(500, 500),
+                Position = new Vector2(100, GameWorld.sceenSize.Y - 40),
                 //Text = "Miner"
             };
             gameButtons.Add(minerButton);
-            minerButton.Click += MinerButtonClick;
+            minerButton.minerClick += MinerButtonClick;
+
+            var farmerButton = new Button(Content.Load<Texture2D>("Workers/FarmerGirth"))
+            {
+                Position = new Vector2(150, GameWorld.sceenSize.Y - 40),
+            };
+            gameButtons.Add(farmerButton);
+            farmerButton.farmerClick += FarmerButtonClick;
+
+            var lumberButton = new Button(Content.Load<Texture2D>("Workers/LumberGirth"))
+            {
+                Position = new Vector2(200, GameWorld.sceenSize.Y - 40),
+            };
+            gameButtons.Add(lumberButton);
+            lumberButton.lumberClick += LumberButtonClick;
 
         }
 
+        //creates Miner
         private void MinerButtonClick(object sender, EventArgs e)
         {
-            createWorkerThread = new Thread(CreateWorker);
+            createWorkerThread = new Thread(CreateMiner);
             createWorkerThread.IsBackground = true;
             createWorkerThread.Start();
         }
 
-        private static void CreateWorker()
+        private static void CreateMiner()
         {
             Thread.Sleep(2000);
             newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Gold));
         }
+
+        //creates Farmer
+        private void FarmerButtonClick(object sender, EventArgs e)
+        {
+            createWorkerThread = new Thread(CreateFarmer);
+            createWorkerThread.IsBackground = true;
+            createWorkerThread.Start();
+        }
+
+        private static void CreateFarmer()
+        {
+            Thread.Sleep(2000);
+            newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Food,0));
+        }
+
+        //creates Lumber
+        private void LumberButtonClick(object sender, EventArgs e)
+        {
+            createWorkerThread = new Thread(CreateLumber);
+            createWorkerThread.IsBackground = true;
+            createWorkerThread.Start();
+        }
+
+        private static void CreateLumber()
+        {
+            Thread.Sleep(2000);
+            newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Wood,0,0));
+        }
+
+
 
         protected override void Update(GameTime gameTime)
         {
