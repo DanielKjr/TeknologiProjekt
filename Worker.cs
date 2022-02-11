@@ -26,7 +26,14 @@ namespace TeknologiProjekt
         protected int gathering;
         protected int offloading;
 
+        public delegate void TaskHandler(Task _task);
 
+        /// <summary>
+        /// Uses super-class to set its position as well as loading its texture, then starts its own thread.
+        /// The overloads are purely to be able decide which sprite to use when we instantiate it.
+        /// </summary>
+        /// <param name="_pos"></param>
+        /// <param name="_task"></param>
         public Worker(Vector2 _pos, Task _task) : base(_pos, "Workers/MinerGirth")
         {
             moveSpeed = 0.5f;
@@ -55,6 +62,12 @@ namespace TeknologiProjekt
             taskThread.Start();
         }
 
+        /// <summary>
+        /// Main thread/worker function, updates the workers position and where it is moving.
+        /// The target is determined by the Task enum used when instantiating the worker, they will go to the resource assigned 
+        /// and will start to withdraw resources from the ressource while also filling up the inventory that is used to determine when they are full/how much they can carry.
+        /// When full the worker will return to the settlement and offload resources, the TaskHandler delegate then resets its loop
+        /// </summary>
         private void ResourceGathering()
         {
             _taskHandler = new TaskHandler(TaskHandlerMethod);
@@ -109,8 +122,14 @@ namespace TeknologiProjekt
             }
         }
 
-        public delegate void TaskHandler(Task _task);
+       
 
+        /// <summary>
+        /// This method determines the workers' behavior depending on the Task they're assigned.
+        /// At the end of each loop of the ResourceGathering function the target will be reset to the corresponding ressource
+        /// The collected ressources is then taken from the worker and added to the players ressource pool before reverting them to 0 to start over.
+        /// </summary>
+        /// <param name="_task"></param>
         private void TaskHandlerMethod(Task _task)
         {
             switch (_task)

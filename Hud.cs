@@ -5,7 +5,11 @@ namespace TeknologiProjekt
 {
     public class Hud
     {
-        
+        /// <summary>
+        /// Draws the player pool resources to the screen as well as a overall available ressource while in debug mode.
+        /// Was intended to show more and have more options.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(GameWorld.standardFont, $"Food: {GameObject.Food}\nWood: {GameObject.Wood}\nGold: {GameObject.Gold}", new Vector2(500, GameWorld.sceenSize.Y -65), Color.Black);

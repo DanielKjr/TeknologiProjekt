@@ -22,6 +22,7 @@ namespace TeknologiProjekt
         protected bool isAlive;
 
         protected int workerInventory = 0;
+        //static because we intended to implement upgrades to inventory capacity
         public static int workerMaxInventory = 10;
 
         public static int goldResource = 0;
@@ -31,8 +32,11 @@ namespace TeknologiProjekt
         public static int Food = 50;
         public static int Gold = 50;
 
-        public Vector2 Position { get => position; set => position = value; }
-
+        /// <summary>
+        /// Sets up super class to set position and spritepath to be what is put in parameters
+        /// </summary>
+        /// <param name="_pos"></param>
+        /// <param name="_spritePath"></param>
         public GameObject(Vector2 _pos, string _spritePath)
         {
             position = _pos;
@@ -49,6 +53,10 @@ namespace TeknologiProjekt
             spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, spriteScale, SpriteEffects.None, 0f);
 
         }
+        /// <summary>
+        /// Uses string from the constructor to load content for all gameobjects
+        /// </summary>
+        /// <param name="content"></param>
         public virtual void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>(spritePath);

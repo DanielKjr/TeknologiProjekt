@@ -23,11 +23,9 @@ namespace TeknologiProjekt
         public event EventHandler farmerClick;
         public event EventHandler lumberClick;
 
-        public bool Clicked { get; private set; }
-        public Color PenColor { get; set; }
-      //  private Color color = Color.White;
-        public Vector2 Position { get; set; }
 
+        public Vector2 Position { get; set; }
+        public string Text { get; set; }
         public Rectangle Rectangle
         {
             get
@@ -40,13 +38,11 @@ namespace TeknologiProjekt
         {
             _sprite = sprite;
             spriteScale = 0.5f;
-            PenColor = Color.Black;
+
         }
 
 
-        public string Text { get; set; }
-
-
+       
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var color = Color.White;
@@ -64,10 +60,14 @@ namespace TeknologiProjekt
                 var x = (Rectangle.X + (Rectangle.Width / 2) + 20) - (font.MeasureString(Text).X / 2);
                 var y = (Rectangle.Y + (Rectangle.Width / 2 + 30)) - (font.MeasureString(Text).Y / 2);
 
-                spriteBatch.DrawString(GameWorld.standardFont, Text, new Vector2(x, y), PenColor, 0, Vector2.Zero, 0.7f, 0, 0);
+                spriteBatch.DrawString(GameWorld.standardFont, Text, new Vector2(x, y), Color.Black, 0, Vector2.Zero, 0.7f, 0, 0);
             }
         }
 
+        /// <summary>
+        /// Updates mouse rectangle for collision/checking if it intersects, if it does change color and invoke event if conditions are met.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             _previousMouse = _currentMouse;

@@ -77,6 +77,7 @@ namespace TeknologiProjekt
 
             }
 
+            //creates buttons for click events
             var minerButton = new Button(Content.Load<Texture2D>("Workers/MinerGirth"))
             {
                 Position = new Vector2(1100, GameWorld.sceenSize.Y - 60),
@@ -103,7 +104,14 @@ namespace TeknologiProjekt
 
         }
 
-        //creates Miner
+        #region clickevent triggers
+        /// <summary>
+        /// Method is run on a click event, withdraws the ressource from the player pool, if they can afford to buy a worker
+        /// and then starts a thread that instantiates the worker after a set time.
+        /// Ideally this would be in a different class with parameter overloads instead of one for each, but we didn't have the time.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MinerButtonClick(object sender, EventArgs e)
         {
             createWorkerThread = new Thread(CreateMiner);
@@ -113,6 +121,9 @@ namespace TeknologiProjekt
             createWorkerThread.Start();
         }
 
+        /// <summary>
+        /// Instantiates worker after 2000milisec
+        /// </summary>
         private static void CreateMiner()
         {
             Thread.Sleep(2000);
@@ -151,7 +162,7 @@ namespace TeknologiProjekt
             newObjects.Add(new Worker(new Vector2(sceenSize.X / 2 + 70, sceenSize.Y / 2 + 70), Task.Wood,0));
         }
 
-
+        #endregion
 
         protected override void Update(GameTime gameTime)
         {
